@@ -1,6 +1,0 @@
-violon
-pikachu
-finir le livre rust
-manger
-monter chall
-dormir

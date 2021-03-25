@@ -1,7 +1,5 @@
-
 use std::{fs, io, usize};
 use std::process;
-// use std::io::prelude::*;
 
 //side effect fn area
 
@@ -20,14 +18,14 @@ pub fn run(file_path: &str) {
 		Order::Add(todo) => {
 			let new_todo_list = add_todo(&todo, &todo_list);
 
-			if let Err(err) = fs::write(file_path, new_todo_list.as_bytes()) {
+			if let Err(err) = fs::write("./todo_list.txt", new_todo_list.as_bytes()) {
 				eprint!("Application error when writting file: {}", err);
 				process::exit(1);
 			}
 
 		}
 		Order::Del(line) => { 
-			let new_todo_list = delete_todo(line, &&todo_list);
+			let new_todo_list = delete_todo(line, &todo_list);
 
 			if let Err(err) = fs::write(file_path, new_todo_list.as_bytes()) {
 				eprint!("Application error when writting file: {}", err);
