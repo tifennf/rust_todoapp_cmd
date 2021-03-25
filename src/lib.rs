@@ -3,12 +3,10 @@ use std::{fs, io, usize};
 use std::process;
 // use std::io::prelude::*;
 
-const FILE_PATH: &str = "./todo_list.txt";
-
 //side effect fn area
 
-pub fn run() {
-	let todo_list = fs::read_to_string(FILE_PATH).unwrap_or_else(| err | {
+pub fn run(file_path: &str) {
+	let todo_list = fs::read_to_string(file_path).unwrap_or_else(| err | {
 		eprintln!("Application error when reading file: {}", err);
 		process::exit(1);
 	});
@@ -22,7 +20,7 @@ pub fn run() {
 		Order::Add(todo) => {
 			let new_todo_list = add_todo(&todo, &todo_list);
 
-			if let Err(err) = fs::write(FILE_PATH, new_todo_list.as_bytes()) {
+			if let Err(err) = fs::write(file_path, new_todo_list.as_bytes()) {
 				eprint!("Application error when writting file: {}", err);
 				process::exit(1);
 			}
@@ -31,7 +29,7 @@ pub fn run() {
 		Order::Del(line) => { 
 			let new_todo_list = delete_todo(line, &&todo_list);
 
-			if let Err(err) = fs::write(FILE_PATH, new_todo_list.as_bytes()) {
+			if let Err(err) = fs::write(file_path, new_todo_list.as_bytes()) {
 				eprint!("Application error when writting file: {}", err);
 				process::exit(1);
 			}
